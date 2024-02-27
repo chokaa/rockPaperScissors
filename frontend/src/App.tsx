@@ -1,6 +1,5 @@
-import React from 'react';
-import Layout from './Layout';
-import { AppProvider } from './AppState';
+import Layout from './components/Layout';
+import { AppProvider } from './state/AppState';
 
 const App = () => {
   return(
