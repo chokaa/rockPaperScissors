@@ -1,51 +1,35 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import random
+from constants import possible_game_moves, possible_game_results
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes in the app
 
-possible_game_moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock']
-possible_game_results = {
-    ('Rock', 'Paper'): 'You LOSE !',
-    ('Rock', 'Scissors'): 'You WIN !',
-    ('Rock', 'Lizard'): 'You WIN !',
-    ('Rock', 'Spock'): 'You LOSE !',
-
-    ('Paper', 'Rock'): 'You WIN !',
-    ('Paper', 'Scissors'): 'You LOSE !',
-    ('Paper', 'Lizard'): 'You LOSE !',
-    ('Paper', 'Spock'): 'You WIN !',
-
-    ('Scissors', 'Rock'): 'You LOSE !',
-    ('Scissors', 'Paper'): 'You WIN !',
-    ('Scissors', 'Lizard'): 'You WIN !',
-    ('Scissors', 'Spock'): 'You LOSE !',
-
-    ('Lizard', 'Rock'): 'You LOSE !',
-    ('Lizard', 'Paper'): 'You WIN !',
-    ('Lizard', 'Scissors'): 'You LOSE !',
-    ('Lizard', 'Spock'): 'You WIN !',
-
-    ('Spock', 'Rock'): 'You WIN !',
-    ('Spock', 'Paper'): 'You LOSE !',
-    ('Spock', 'Scissors'): 'You WIN !',
-    ('Spock', 'Lizard'): 'You LOSE !',
-}
-
 @app.route('/play', methods=['POST'])
 def play():
-    # Receive player's move from the UI service
-    player_move = request.json.get('move')
-    computer_move = get_computer_move()
+    # Receive player's action from the UI service
+    player_action = request.json.get('player')
+    player_move = possible_game_moves[player_action]
+    computer_action = get_computer_action()
+    computer_move = possible_game_moves[computer_action]
     # Determine the winner based on player's move and computer's move
     game_result = determine_winner(player_move, computer_move)
-    return jsonify({'result': game_result})
+    return jsonify({'result': game_result, 'player': player_action, 'computer': computer_action})
 
-def get_computer_move():
+@app.route('/choices', methods=['GET'])
+def get_choices():
+    return jsonify(possible_game_moves)
+
+@app.route('/choice', methods=['GET'])
+def get_choice():
+    computer_action = get_computer_action
+    return jsonify({ 'id': computer_action, 'name': possible_game_moves[computer_action]})
+
+def get_computer_action():
     # response = requests.post(THIRD_PARTY_URL) what should be used here, but for simplicity i'm just gonna use random
     random_index = random.randint(0, len(possible_game_moves) - 1)
-    return possible_game_moves[random_index]
+    return random_index
 
 def determine_winner(player_move, computer_move):
     # If player's move is the same as computer's move, it's a tie
