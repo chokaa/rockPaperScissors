@@ -2,12 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import random
 
-
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes in the app
 
 possible_game_moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock']
-
 possible_game_results = {
     ('Rock', 'Paper'): 'You LOSE !',
     ('Rock', 'Scissors'): 'You WIN !',
@@ -39,15 +37,9 @@ possible_game_results = {
 def play():
     # Receive player's move from the UI service
     player_move = request.json.get('move')
-    
     computer_move = get_computer_move()
-
-    print("computer_move element:", computer_move)
-    print("player_move element:", player_move)
-    
     # Determine the winner based on player's move and computer's move
     game_result = determine_winner(player_move, computer_move)
-    
     return jsonify({'result': game_result})
 
 def get_computer_move():

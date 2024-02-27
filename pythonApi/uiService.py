@@ -15,10 +15,8 @@ def play():
     try:
         # JSON payload to send to the game service
         payload = {'move': player_move}
-
         # Make a POST request to the game service
         response = requests.post(GAME_SERVICE_URL, json=payload)
-
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
             # Parse the JSON response from the game service
