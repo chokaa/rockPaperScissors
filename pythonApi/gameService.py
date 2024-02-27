@@ -23,12 +23,12 @@ def get_choices():
 
 @app.route('/choice', methods=['GET'])
 def get_choice():
-    computer_action = get_computer_action
+    computer_action = get_computer_action()
     return jsonify({ 'id': computer_action, 'name': possible_game_moves[computer_action]})
 
 def get_computer_action():
     # response = requests.post(THIRD_PARTY_URL) what should be used here, but for simplicity i'm just gonna use random
-    random_index = random.randint(0, len(possible_game_moves) - 1)
+    random_index = random.randint(1, len(possible_game_moves))
     return random_index
 
 def determine_winner(player_move, computer_move):
