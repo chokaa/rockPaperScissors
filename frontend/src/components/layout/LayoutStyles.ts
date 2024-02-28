@@ -10,6 +10,7 @@ const buttonStyle: CSSProperties = {
 const styles: { [key: string]: CSSProperties } = {
   container: {
     maxWidth: '400px',
+    minHeight: '200px',
     margin: 'auto',
     padding: '20px',
     textAlign: 'center',

@@ -10,7 +10,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [possibleMoves, setPossibleMoves] = useState<PossibleMoves[]>([
     { id: 0, value: 'Select your move' }
   ]);
+  const [results, setResults] = useState<string[]>([]);
   const addMoves = (moves: PossibleMoves[]) => setPossibleMoves([...possibleMoves, ...moves]);
+  const addResult = (result: string) => setResults([result, ...results.slice(0, 9)]);
+  const resetAllResults = () => {
+    setResults([]);
+    setPlayerMove(0);
+    setComputerMove(0);
+  }
 
   return (
     <AppContext.Provider
@@ -20,7 +27,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         computerMove,
         setComputerMove,
         possibleMoves,
-        addMoves
+        addMoves,
+        results,
+        addResult,
+        resetAllResults
       }}
     >
       {children}

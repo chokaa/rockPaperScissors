@@ -1,18 +1,19 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppContext } from '../state/AppState';
+import { useAppContext } from '../../state/AppState';
 import styles from './LayoutStyles';
-import { PossibleMoves } from '../definitions/Interfaces';
-import useFetchPossibleMoves from '../services/FetchPossibleMoves';
-import usePlayGame from '../services/PlayGame';
+import { PossibleMoves } from '../../definitions/Interfaces';
+import useFetchPossibleMoves from '../../services/FetchPossibleMoves';
+import playGameCall from '../../services/PlayGame';
+import DisplayResult from '../displayResult/DisplayResult';
 
 const Layout: React.FC = () => {
-  const { possibleMoves, addMoves, playerMove, setPlayerMove, computerMove, setComputerMove } = useAppContext();
-  const [result, setResult] = useState<string>('');
+  const { possibleMoves, addMoves, playerMove, setPlayerMove, computerMove, setComputerMove, addResult } = useAppContext();
+  const [currentResult, setCurrentResult] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const isButtonDisabled = useMemo(() => !playerMove || loading, [playerMove, loading]);
   useFetchPossibleMoves(addMoves);
-  const playGame = usePlayGame(playerMove, setComputerMove, setResult, setLoading);
+  const playGame = playGameCall(playerMove, setComputerMove, setCurrentResult, setLoading, addResult);
 
   const handleChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     if (!loading) {
@@ -30,10 +31,13 @@ const Layout: React.FC = () => {
       <button onClick={playGame} disabled={isButtonDisabled} style={isButtonDisabled ? styles.buttonDisabled : styles.button}>
         Bazinga
       </button>
-      {playerMove !== 0 && <div>You played {possibleMoves[playerMove].value}</div>}
-      {Boolean(computerMove) && <div>Sheldon played {possibleMoves[computerMove].value}</div>}
-      {loading && <p style={styles.loading}>Loading...</p>}
-      {!loading && result && computerMove !== 0 && <p style={styles.result}>{result}</p>}
+      <div style={styles.container}>
+        {playerMove !== 0 && <div style={styles.result}>You played {possibleMoves[playerMove].value}</div>}
+        {Boolean(computerMove) && <div style={styles.result}>Sheldon played {possibleMoves[computerMove].value}</div>}
+        {loading && <p style={styles.loading}>Loading...</p>}
+        {!loading && currentResult && computerMove !== 0 && <p style={styles.result}>{currentResult}</p>}
+      </div>
+      <DisplayResult />
     </div>
   );
 };

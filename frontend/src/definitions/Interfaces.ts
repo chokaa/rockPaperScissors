@@ -8,6 +8,9 @@ interface AppContextValue {
   setComputerMove: React.Dispatch<React.SetStateAction<number>>;
   possibleMoves: PossibleMoves[];
   addMoves: (moves: PossibleMoves[]) => void;
+  results: string[],
+  addResult: (result: string) => void;
+  resetAllResults: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 interface PossibleMoves {
