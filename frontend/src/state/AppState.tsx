@@ -15,7 +15,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const addResult = (result: string) => setResults([result, ...results.slice(0, 9)]);
   const resetAllResults = () => {
     setResults([]);
-    setPlayerMove(0);
     setComputerMove(0);
   }
 
