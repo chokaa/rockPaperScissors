@@ -8,5 +8,8 @@ After either of options above, navigate to frontend folder and go with npm insta
 
 After that you should be able to play a game of Rock Paper Scissors Lizard Spock against Sheldon. Have fun !
 
-To import Docker image for nodeApi you need to navigate to nodeApi folder and run 
-docker load -i rock-paper-scissors.tar to import Docker image, for this you need Docker installed.
+To import Docker image for nodeApi you need to have Docker installed and  navigate to nodeApi folder and run
+docker build -t rock-paper-scissors-image .
+docker run -d -p 5000:5000 -p 5001:5001 --name rock-paper-scissors-container rock-paper-scissors-image
+
+This way you don't need to do npm start in nodeApi folder, only in frontend folder.
