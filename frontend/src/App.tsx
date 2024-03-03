@@ -1,5 +1,5 @@
-import Layout from './components/layout/Layout';
-import { AppProvider } from './state/AppState';
+import Layout from './components/layout/Layout'
+import { AppProvider } from './state/AppState'
 
 const App = () => {
   return(
@@ -7,6 +7,6 @@ const App = () => {
       <Layout />
     </AppProvider>
   )
-};
+}
 
-export default App;
+export default App

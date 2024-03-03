@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const playGameCall = (
   playerMove: number, 
@@ -9,21 +9,21 @@ const playGameCall = (
 ) => {
   const playGame = async () => {
     try {
-      setLoading(true);
-      setComputerMove(0);
-      const response = await axios.post('http://localhost:5000/play', { player: playerMove });
-      const { result, computer } = response.data;
-      setComputerMove(computer);
-      setCurrentResult(result);
-      addResult(result);
+      setLoading(true)
+      setComputerMove(0)
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/play`, { player: playerMove })
+      const { result, computer } = response.data
+      setComputerMove(computer)
+      setCurrentResult(result)
+      addResult(result)
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
-  return playGame;
-};
+  return playGame
+}
 
-export default playGameCall;
+export default playGameCall

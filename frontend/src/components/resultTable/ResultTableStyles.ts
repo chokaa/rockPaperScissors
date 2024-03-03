@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties } from 'react'
 
 const styles: { [key: string]: CSSProperties } = {
   container: {
@@ -34,6 +34,6 @@ const styles: { [key: string]: CSSProperties } = {
     transition: 'background-color 0.3s',
     marginTop: '20px',
   },
-};
+}
 
-export default styles;
+export default styles

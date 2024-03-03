@@ -3,15 +3,20 @@ import { CSSProperties } from 'react'
 const styles: { [key: string]: CSSProperties } = {
   container: {
     maxWidth: '400px',
-    minHeight: '200px',
+    minHeight: '150px',
     margin: 'auto',
     padding: '20px',
     textAlign: 'center',
   },
-  title: {
-    color: '#333',
+  loading: {
+    color: '#999',
+    fontSize: '16px',
+    marginTop: '20px',
+  },
+  result: {
+    color: '#28a745',
     fontSize: '24px',
-    marginBottom: '20px',
+    marginTop: '20px',
   },
 }
 

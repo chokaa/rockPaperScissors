@@ -1,11 +1,12 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import styles from './DisplayResultStyles';
-import { useAppContext } from '../../state/AppState';
+import { FC } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import styles from './ResultTableStyles'
+import { useAppContext } from '../../state/AppState'
 
-const DisplayResult: React.FC = () => {
-  const { results, resetAllResults } = useAppContext();
-  const resetResults = () => resetAllResults([]);
+const DisplayResult: FC = () => {
+
+  const { results, resetAllResults } = useAppContext()
+  const resetResults = () => resetAllResults([])
 
   return (
     <div style={styles.container}>
@@ -19,7 +20,7 @@ const DisplayResult: React.FC = () => {
         Reset results
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default DisplayResult;
+export default DisplayResult
